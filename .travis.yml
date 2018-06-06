@@ -12,4 +12,4 @@ env:
     DCS: etcd
 
 before_install:
-  - sudo apt-get -qq update -y && sudo apt-get -qq install python-pip docker-compose -y && sudo pip -q install setuptools ansible --upgrade
+  - sudo apt-get -qq update -y && sudo apt-get -qq install python-pip -y && sudo pip -q install setuptools docker-compose ansible --upgrade
