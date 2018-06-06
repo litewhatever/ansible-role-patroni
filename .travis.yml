@@ -12,6 +12,11 @@ env:
     DCS: etcd
 
 before_install:
-  - sudo apt-get -qq update -y && sudo apt-get -qq install libffi-dev libssl-dev python3-pip -y && sudo pip -q install setuptools docker-compose ansible --upgrade
+  - sudo apt-get -qq update -y && sudo apt-get -qq install libffi-dev libssl-dev python3-pip -y > /dev/null && sudo pip -q install setuptools docker-compose ansible --upgrade
+install:
+  - docker-compose -f ${DCS}-compose.yml -f ${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml up -d
 script:
-  - echo 1
+  - docker ps
+  - python --version
+  - pip --version
+
