@@ -3,7 +3,7 @@ services:
   ubuntu0:
     container_name: ubuntu0
     privileged: true
-    cap-add:
+    cap_add:
       - ALL
     image: ubuntu:16.04
     command: /lib/systemd/systemd
@@ -13,7 +13,7 @@ services:
   ubuntu1:
     container_name: ubuntu1
     privileged: true
-    cap-add:
+    cap_add:
       - ALL
     image: ubuntu:16.04
     command: /lib/systemd/systemd
@@ -23,7 +23,7 @@ services:
   ubuntu2:
     container_name: ubuntu2
     privileged: true
-    cap-add:
+    cap_add:
       - ALL
     image: ubuntu:16.04
     command: /lib/systemd/systemd
