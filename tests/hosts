@@ -1,0 +1,54 @@
+[all:vars]
+ansible_connection=docker ansible_user=root
+
+[patroni:children]
+centos
+debian
+ubuntu
+
+[etcd]
+etcd0 ansible_host=etcd0
+etcd1 ansible_host=etcd1
+etcd2 ansible_host=etcd2
+
+[centos:children]
+centos-6
+centos-7
+
+[centos-6]
+centos0 ansible_host=centos0
+centos1 ansible_host=centos1
+centos2 ansible_host=centos2
+
+[centos-7]
+centos0 ansible_host=centos0
+centos1 ansible_host=centos1
+centos2 ansible_host=centos2
+
+[debian:children]
+debian-8
+debian-9
+
+[debian-8]
+debian0 ansible_host=debian0
+debian1 ansible_host=debian1
+debian2 ansible_host=debian2
+
+[debian-9]
+debian0 ansible_host=debian0
+debian1 ansible_host=debian1
+debian2 ansible_host=debian2
+
+[ubuntu:children]
+ubuntu-16.04
+ubuntu-18.04
+
+[ubuntu-16.04]
+ubuntu0 ansible_host=ubuntu0
+ubuntu1 ansible_host=ubuntu1
+ubuntu2 ansible_host=ubuntu2
+
+[ubuntu-18.04]
+ubuntu0 ansible_host=ubuntu0
+ubuntu1 ansible_host=ubuntu1
+ubuntu2 ansible_host=ubuntu2

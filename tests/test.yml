@@ -1,5 +1,7 @@
 ---
 - hosts: patroni
   become: yes
+  vars:
+    patroni_dcs_exists: true
   roles:
-    - ../../patroni
+    - ../
