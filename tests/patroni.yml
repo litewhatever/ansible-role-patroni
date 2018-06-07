@@ -5,6 +5,7 @@
     - raw: apt-get -qq update -y && apt-get -qq install python-simplejson sudo -y > /dev/null
 
 - hosts: patroni
+  gather_timeout: 30
   become: yes
   vars:
     patroni_dcs_exists: true
