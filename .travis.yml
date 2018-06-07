@@ -13,8 +13,8 @@ before_install:
 #  - sudo apt-get -qq update -y && sudo apt-get -qq install libffi-dev libssl-dev python-pip -y > /dev/null && sudo pip -q install setuptools docker-compose ansible --upgrade
   - sudo apt-get -qq update -y
 install:
-  - apt-get -qq install python-pip -y > /dev/null
-  - pip install setuptools docker-compose ansible yamllint --upgrade -q > /dev/null
+  - sudo apt-get -qq install python-pip -y > /dev/null
+  - sudo pip install setuptools docker-compose ansible yamllint --upgrade -q > /dev/null
   - docker-compose -f tests/${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml -f tests/${DCS}-compose.yml up -d
   - sleep 5
   - docker ps -a
