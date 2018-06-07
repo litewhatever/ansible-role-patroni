@@ -1,5 +1,5 @@
 [all:vars]
-ansible_connection=docker ansible_user=root
+ansible_connection=docker
 
 [patroni:children]
 centos
