@@ -1,7 +1,7 @@
 ---
 sudo: required
 
-#services: docker
+services: docker
 
 env:
   - DISTRIBUTION: ubuntu
@@ -11,12 +11,12 @@ env:
 
 before_install:
 #  - sudo apt-get -qq update -y && sudo apt-get -qq install libffi-dev libssl-dev python-pip -y > /dev/null && sudo pip -q install setuptools docker-compose ansible --upgrade
-  - sudo apt-get -qq update -y && sudo apt-get -qq install python-pip -y > /dev/null && sudo pip -q install setuptools docker-compose ansible yamllint --upgrade
+  - sudo apt-get -qq update -y > /dev/null && sudo apt-get -qq install python-pip -y && sudo pip -q install setuptools docker-compose ansible yamllint --upgrade
 install:
   - docker-compose -f tests/${DCS}-compose.yml -f tests/${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml up -d
   - sleep 5
   - docker ps -a
 script:
 #  - yamllint 
-  - ansible-playbook tests/test.yml --syntax-check
-  - ansible-playbook tests/test.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} -extra-vars patroni_dcs=${DCS}
+  - ansible-playbook -i hosts tests/test.yml --syntax-check
+  - ansible-playbook -i hosts tests/test.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} --extra-vars patroni_dcs=${DCS}
