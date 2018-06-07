@@ -14,11 +14,11 @@ before_install:
   - sudo apt-get -qq update -y
 install:
   - sudo apt-get -qq install python-pip -y > /dev/null
-  - sudo pip install setuptools docker-compose ansible yamllint --upgrade -q > /dev/null
+  - sudo pip install setuptools docker-compose yamllint ansible==${ANSIBLE_VERSION} --upgrade -q > /dev/null
   - docker-compose -f tests/${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml -f tests/${DCS}-compose.yml up -d
   - sleep 5
   - docker ps -a
 script:
 #  - yamllint 
-  - ansible-playbook -i hosts tests/patroni.yml --syntax-check
-  - ansible-playbook -i hosts tests/patroni.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} --extra-vars patroni_dcs=${DCS}
+  - ansible-playbook -i tests/hosts tests/patroni.yml --syntax-check
+  - ansible-playbook -i tests/hosts tests/patroni.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} --extra-vars patroni_dcs=${DCS}
