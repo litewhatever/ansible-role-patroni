@@ -1,6 +1,11 @@
 ---
 
 - block:
+    - name: Make sure the CA certificates are available
+      package:
+        name: ca-certificates
+        update_cache: yes
+
     - name: Configure postgresql repository key
       apt_key:
         url: "{{ postgresql_apt_key_url }}"

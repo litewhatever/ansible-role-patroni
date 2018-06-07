@@ -1,7 +1,9 @@
 ---
 #services: docker
-
+os: linux
+dist: trusty
 sudo: required
+language: python
 
 env:
   - DISTRIBUTION: ubuntu
@@ -10,15 +12,15 @@ env:
     DCS: etcd
 
 before_install:
-#  - sudo apt-get -qq update -y && sudo apt-get -qq install libffi-dev libssl-dev python-pip -y > /dev/null && sudo pip -q install setuptools docker-compose ansible --upgrade
-  - sudo apt-get -qq update -y
+  - sudo apt-get -qq update -y && sudo apt-get -qq install apt-utils -y > /dev/null
 install:
   - sudo apt-get -qq install python-pip -y > /dev/null
-  - sudo pip install setuptools docker-compose yamllint ansible==${ANSIBLE_VERSION} --upgrade -q > /dev/null
+  - sudo pip install setuptools docker-compose yamllint ansible==${ANSIBLE_VERSION} --upgrade -q #> /dev/null
   - docker-compose -f tests/${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml -f tests/${DCS}-compose.yml up -d
   - sleep 5
   - docker ps -a
 script:
-#  - yamllint 
+#  - find . -name "*.yml" -type f | xargs yamllint
+  - ansible-galaxy install -r tests/requirements.yml
   - ansible-playbook -i tests/hosts tests/patroni.yml --syntax-check
   - ansible-playbook -i tests/hosts tests/patroni.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} --extra-vars patroni_dcs=${DCS}

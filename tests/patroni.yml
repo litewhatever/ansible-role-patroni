@@ -1,7 +1,13 @@
 ---
 - hosts: patroni
+  gather_facts: no
+  pre_tasks:
+    - raw: apt-get -qq update -y && apt-get -qq install python-simplejson sudo -y > /dev/null
+
+- hosts: patroni
   become: yes
   vars:
     patroni_dcs_exists: true
+    patroni_etcd_hosts: "etcd0:2377,etcd1:2378,etcd2:2379"
   roles:
-    - ../
+    - ../ansible-role-patroni
