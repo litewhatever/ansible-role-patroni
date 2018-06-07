@@ -15,7 +15,7 @@ before_install:
   - sudo apt-get -qq update -y && sudo apt-get -qq install apt-utils -y > /dev/null
 install:
   - sudo apt-get -qq install python-pip -y > /dev/null
-  - sudo pip install setuptools docker-compose yamllint ansible==${ANSIBLE_VERSION} --upgrade -q #> /dev/null
+  - sudo pip install setuptools docker-compose yamllint ansible==${ANSIBLE_VERSION} --upgrade -q > /dev/null
   - docker-compose -f tests/${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml -f tests/${DCS}-compose.yml up -d
   - sleep 5
   - docker ps -a
