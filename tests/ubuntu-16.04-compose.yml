@@ -10,6 +10,7 @@ services:
     volumes:
       - /dev:/dev
       - /lib/modules:/lib/modules
+      - /sbin/modprobe:/sbin/modprobe
   ubuntu1:
     container_name: ubuntu1
     privileged: true
@@ -20,6 +21,7 @@ services:
     volumes:
       - /dev:/dev
       - /lib/modules:/lib/modules
+      - /sbin/modprobe:/sbin/modprobe
   ubuntu2:
     container_name: ubuntu2
     privileged: true
@@ -30,3 +32,4 @@ services:
     volumes:
       - /dev:/dev
       - /lib/modules:/lib/modules
+      - /sbin/modprobe:/sbin/modprobe
