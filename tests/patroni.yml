@@ -12,3 +12,4 @@
     patroni_etcd_hosts: "etcd0:2377,etcd1:2378,etcd2:2379"
   roles:
     - ../ansible-role-patroni
+
