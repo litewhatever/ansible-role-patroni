@@ -17,10 +17,13 @@ script:
   - ansible-galaxy install -r tests/requirements.yml
   - ansible-playbook -i tests/hosts tests/patroni.yml --syntax-check
   - ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/hosts tests/patroni.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} --extra-vars patroni_dcs=${DCS}
+  - ansible -i tests/hosts ${DISTRIBUTION}-${DISTRIBUTION_VERSION} -a "patronictl -c /etc/patroni/*.yml list main"
+  - sleep 10
+  - ansible -i tests/hosts ${DISTRIBUTION}-${DISTRIBUTION_VERSION} -a "patronictl -c /etc/patroni/*.yml failover main --force"
+  - sleep 10
+  - ansible -i tests/hosts ${DISTRIBUTION}-${DISTRIBUTION_VERSION} -a "patronictl -c /etc/patroni/*.yml list main"
 
 after_success:
-  - docker exec -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "patronictl -c /etc/patroni/*.yml list main"
-  - docker exec --user=postgres -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "psql -Atc \"SELECT 1\""
   - docker-compose -f tests/${DISTRIBUTION}-${DISTRIBUTION_VERSION}-compose.yml -f tests/${DCS}-compose.yml down
 
 after_failure:
