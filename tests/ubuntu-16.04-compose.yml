@@ -22,14 +22,14 @@ services:
       - /dev:/dev
       - /lib/modules:/lib/modules
       - /sbin/modprobe:/sbin/modprobe
-  ubuntu2:
-    container_name: ubuntu2
-    privileged: true
-    cap_add:
-      - ALL
-    image: ubuntu:16.04
-    command: /lib/systemd/systemd
-    volumes:
-      - /dev:/dev
-      - /lib/modules:/lib/modules
-      - /sbin/modprobe:/sbin/modprobe
+#  ubuntu2:
+#    container_name: ubuntu2
+#    privileged: true
+#    cap_add:
+#      - ALL
+#    image: ubuntu:16.04
+#    command: /lib/systemd/systemd
+#    volumes:
+#      - /dev:/dev
+#      - /lib/modules:/lib/modules
+#      - /sbin/modprobe:/sbin/modprobe
