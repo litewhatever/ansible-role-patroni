@@ -19,11 +19,11 @@ script:
   - ansible-playbook -i tests/hosts tests/patroni.yml --syntax-check
   - ANSIBLE_CONFIG=tests/ansible.cfg ansible-playbook -i tests/hosts tests/patroni.yml -Dvv --limit ${DISTRIBUTION}-${DISTRIBUTION_VERSION} --extra-vars patroni_dcs=${DCS}
 
-after_success:
-  - docker exec -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "patronictl -c /etc/patroni/*.yml list main"
-  - docker exec --user=postgres -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "psql -Atc \"SELECT 1\""
-  - docker rm -f ${DISTRIBUTION}-${DISTRIBUTION_VERSION}
+#after_success:
+#  - docker exec -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "patronictl -c /etc/patroni/*.yml list main"
+#  - docker exec --user=postgres -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "psql -Atc \"SELECT 1\""
+#  - docker rm -f ${DISTRIBUTION}-${DISTRIBUTION_VERSION}
 
-after_failure:
-  - docker exec -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "journalctl -u $DCS -u patroni -n1000 --no-pager"
-  - docker rm -f ${DISTRIBUTION}-${DISTRIBUTION_VERSION}
+#after_failure:
+#  - docker exec -t ${DISTRIBUTION}-${DISTRIBUTION_VERSION} /bin/sh -c "journalctl -u $DCS -u patroni -n1000 --no-pager"
+#  - docker rm -f ${DISTRIBUTION}-${DISTRIBUTION_VERSION}

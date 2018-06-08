@@ -5,7 +5,7 @@
     - raw: apt-get -qq update -y && apt-get -qq install apt-utils python-simplejson sudo -y > /dev/null
 
 - hosts: patroni
-  gather_facts: no
+#  gather_facts: no
 #  gather_timeout: 30
   become: yes
   vars:
